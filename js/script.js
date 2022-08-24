@@ -1,5 +1,6 @@
 let stompClient
 let username
+let serverURL = 'http://localhost:8080';
 
 const connect = (event) => {
     username = document.querySelector('#username').value.trim()
@@ -11,7 +12,7 @@ const connect = (event) => {
         const chatPage = document.querySelector('#chat-page')
         chatPage.classList.remove('hide')
 
-        const socket = new SockJS('localhost:8080/websocket')
+        const socket = new SockJS('http://localhost:8080/websocket')
         stompClient = Stomp.over(socket)
         stompClient.connect({}, onConnected, onError)
     }
@@ -19,8 +20,8 @@ const connect = (event) => {
 }
 
 const onConnected = () => {
-    stompClient.subscribe('/topic/public', onMessageReceived)
-    stompClient.send("/app/chat.newUser",
+    stompClient.subscribe('http://localhost:8080/topic/public', onMessageReceived)
+    stompClient.send("http://localhost:8080/app/socket.newUser",
         {},
         JSON.stringify({sender: username, type: 'CONNECT'})
     )
@@ -45,7 +46,7 @@ const sendMessage = (event) => {
             type: 'NORMAL',
             time: moment().calendar()
         }
-        stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage))
+        stompClient.send("http://localhost:8080/app/socket.send", {}, JSON.stringify(chatMessage))
         messageInput.value = ''
     }
     event.preventDefault();
