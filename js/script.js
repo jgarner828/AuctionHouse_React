@@ -11,6 +11,7 @@ const connect = (event) => {
 
         const chatPage = document.querySelector('#chat-page')
         chatPage.classList.remove('hide')
+        console.log("inside connect function")
 
         const socket = new SockJS('http://localhost:8080/websocket')
         stompClient = Stomp.over(socket)
@@ -20,11 +21,16 @@ const connect = (event) => {
 }
 
 const onConnected = () => {
+    console.log("inside onConnected function")
     stompClient.subscribe('http://localhost:8080/topic/public', onMessageReceived)
+    console.log("subscribe function")
+
     stompClient.send("http://localhost:8080/app/socket.newUser",
         {},
         JSON.stringify({sender: username, type: 'CONNECT'})
     )
+    console.log("inside send function")
+
     const status = document.querySelector('#status')
     status.className = 'hide'
 }
@@ -33,11 +39,15 @@ const onError = (error) => {
     const status = document.querySelector('#status')
     status.innerHTML = 'Could not find the connection you were looking for. Move along. Or, Refresh the page!'
     status.style.color = 'red'
+    console.log("inside error function")
+
 }
 
 const sendMessage = (event) => {
     const messageInput = document.querySelector('#message')
     const messageContent = messageInput.value.trim()
+    console.log("inside sendMessage function")
+
 
     if (messageContent && stompClient) {
         const chatMessage = {
@@ -46,6 +56,8 @@ const sendMessage = (event) => {
             type: 'NORMAL',
             time: moment().calendar()
         }
+        console.log("inside stompClient.send function")
+
         stompClient.send("http://localhost:8080/app/socket.send", {}, JSON.stringify(chatMessage))
         messageInput.value = ''
     }
@@ -54,6 +66,8 @@ const sendMessage = (event) => {
 
 
 const onMessageReceived = (payload) => {
+    console.log("inside onMessageReceived function")
+    
     const message = JSON.parse(payload.body);
 
     const chatCard = document.createElement('div')
@@ -105,6 +119,7 @@ const onMessageReceived = (payload) => {
 }
 
 const hashCode = (str) => {
+    console.log("inside hashCode function")
     let hash = 0
     for (let i = 0; i < str.length; i++) {
        hash = str.charCodeAt(i) + ((hash << 5) - hash)
