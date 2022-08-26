@@ -1,6 +1,5 @@
 let stompClient
 let username
-let serverURL = 'http://localhost:8080';
 
 const connect = (event) => {
     username = document.querySelector('#username').value.trim()
@@ -11,9 +10,8 @@ const connect = (event) => {
 
         const chatPage = document.querySelector('#chat-page')
         chatPage.classList.remove('hide')
-        console.log("inside connect function")
 
-        const socket = new SockJS('http://localhost:8080/websocket')
+        const socket = new SockJS('http://localhost:8080/ws')
         stompClient = Stomp.over(socket)
         stompClient.connect({}, onConnected, onError)
     }
@@ -21,15 +19,19 @@ const connect = (event) => {
 }
 
 const onConnected = () => {
-    console.log("inside onConnected function")
-    stompClient.subscribe('http://localhost:8080/topic/public', onMessageReceived)
-    console.log("subscribe function")
 
-    stompClient.send("http://localhost:8080/app/socket.newUser",
+    stompClient.subscribe('/topic/public', onMessageReceived)
+    
+    console.log("stompClient.send function")
+
+    stompClient.send("/app/socket.newUser",
         {},
-        JSON.stringify({sender: username, type: 'CONNECT'})
+        JSON.stringify({
+            sender: username,
+            type: 'NORMAL',
+        })
     )
-    console.log("inside send function")
+
 
     const status = document.querySelector('#status')
     status.className = 'hide'
@@ -44,6 +46,7 @@ const onError = (error) => {
 }
 
 const sendMessage = (event) => {
+
     const messageInput = document.querySelector('#message')
     const messageContent = messageInput.value.trim()
     console.log("inside sendMessage function")
@@ -56,9 +59,9 @@ const sendMessage = (event) => {
             type: 'NORMAL',
             time: moment().calendar()
         }
-        console.log("inside stompClient.send function")
+        console.log("chatMessage: " + chatMessage)
 
-        stompClient.send("http://localhost:8080/app/socket.send", {}, JSON.stringify(chatMessage))
+        stompClient.send("/app/socket.send", {}, JSON.stringify(chatMessage))
         messageInput.value = ''
     }
     event.preventDefault();
