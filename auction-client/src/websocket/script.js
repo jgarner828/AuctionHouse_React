@@ -11,7 +11,9 @@ const connect = (event) => {
         const chatPage = document.querySelector('#chat-page')
         chatPage.classList.remove('hide')
 
+        // eslint-disable-next-line no-undef
         const socket = new SockJS('http://localhost:8080/ws')
+        // eslint-disable-next-line no-undef
         stompClient = Stomp.over(socket)
         stompClient.connect({}, onConnected, onError)
     }
@@ -57,6 +59,7 @@ const sendMessage = (event) => {
             sender: username,
             content: messageInput.value,
             type: 'NORMAL',
+            // eslint-disable-next-line no-undef
             time: moment().calendar()
         }
         console.log("chatMessage: " + chatMessage)

@@ -2,6 +2,8 @@ import React from 'react'
 import AuctionItem from './AuctionItem'
 import auctionItemsTestData from '../data/auctionItemsTestData.json';
 
+import { useEffect } from 'react';
+
 function AuctionList() {
 
 
