@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import AuctionList from './components/AuctionList';
 import { useEffect } from 'react';
 import env from "react-dotenv";
+import jwt_decode from 'jwt-decode';
+
 
 
 
@@ -15,7 +17,11 @@ function App() {
 
 
   function handleCallBackResponse(response) {
-    console.log("response credential: " + response.credential)
+
+    console.log(response)
+    
+    var userObject = jwt_decode(response.credential);
+    console.log( userObject)
 
   }
 

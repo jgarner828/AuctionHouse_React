@@ -4,7 +4,7 @@ window.env = {
   "APPDATA": "C:\\Users\\jgarn\\AppData\\Roaming",
   "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
   "ChocolateyLastPathUpdate": "132996054875564053",
-  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_54604_JPIMPWNFSUEZNOGN",
+  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_71248_QILDGZFHBHGCMSZQ",
   "CLIENT_ID": "691476869681-olobjgpb80v3p2rad1ldauhrmic5hm5m.apps.googleusercontent.com",
   "COLOR": "1",
   "COLORTERM": "truecolor",
