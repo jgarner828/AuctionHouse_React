@@ -3,7 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AuctionList from './components/AuctionList';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import env from "react-dotenv";
 import jwt_decode from 'jwt-decode';
 
@@ -14,6 +14,7 @@ function App() {
 
   let CLIENT_ID = env.CLIENT_ID;
 
+  const [user, setUser] = useState();
 
 
   function handleCallBackResponse(response) {
@@ -21,8 +22,8 @@ function App() {
     console.log(response)
     
     var userObject = jwt_decode(response.credential);
-    console.log( userObject)
-
+    console.log(userObject)
+    setUser(userObject)
   }
 
   useEffect(() => {
@@ -39,17 +40,20 @@ function App() {
 
 
 
-
-
+   
   return (
+ 
     <div className="App">
-        {/* <Header />
-        <AuctionList />
-        <Footer /> */}
-
-        <div id="signInDiv"></div>
-    </div>
+          {
+           user ? 
+                  (<AuctionList />) 
+                :
+                  (<div id="signInDiv"></div>)
+          }
+    </div> 
   );
+
+
 }
 
 export default App;

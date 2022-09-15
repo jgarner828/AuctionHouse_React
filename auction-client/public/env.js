@@ -4,7 +4,7 @@ window.env = {
   "APPDATA": "C:\\Users\\jgarn\\AppData\\Roaming",
   "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
   "ChocolateyLastPathUpdate": "132996054875564053",
-  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_71248_QILDGZFHBHGCMSZQ",
+  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_15560_TBFKDLINSFHWVJQB",
   "CLIENT_ID": "691476869681-olobjgpb80v3p2rad1ldauhrmic5hm5m.apps.googleusercontent.com",
   "COLOR": "1",
   "COLORTERM": "truecolor",
@@ -61,7 +61,6 @@ window.env = {
   "npm_package_name": "auction-client",
   "npm_package_version": "0.1.0",
   "NUMBER_OF_PROCESSORS": "8",
-  "OLDPWD": "C:/Java_Projects/Auction/auctionhouse-React",
   "OneDrive": "C:\\Users\\jgarn\\OneDrive",
   "OneDriveConsumer": "C:\\Users\\jgarn\\OneDrive",
   "ORIGINAL_PATH": "C:\\Program Files\\Git\\mingw64\\bin;C:\\Program Files\\Git\\usr\\bin;C:\\Users\\jgarn\\bin;C:\\Program Files\\Common Files\\Oracle\\Java\\javapath;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Python310\\Scripts;C:\\Python310;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\WINDOWS\\System32\\OpenSSH;C:\\Program Files\\mongosh-1.1.4-win32-x64;C:\\Program Files\\nodejs;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\dotnet;C:\\Program Files\\Amazon\\AWSCLIV2;C:\\Program Files\\Amazon\\AWSSAMCLI\\bin;C:\\Program Files\\Docker\\Docker\\resources\\bin;C:\\ProgramData\\DockerDesktop\\version-bin;C:\\Program Files\\Git\\cmd;C:\\Users\\jgarn\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\jgarn\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\jgarn\\AppData\\Roaming\\npm;C:\\Program Files\\heroku\\bin;C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin;C:\\Program Files\\MongoDB\\Server\\5.0\\bin;C:\\Program Files\\Java\\jdk-18.0.1.1\\bin;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2022.1.2\\bin;C:\\opt\\apache-maven-3.8.6\\bin;C:\\Program Files (x86)\\GnuWin32\\bin",
@@ -94,7 +93,7 @@ window.env = {
   "TEMP": "C:\\Users\\jgarn\\AppData\\Local\\Temp",
   "TERM": "xterm-256color",
   "TERM_PROGRAM": "vscode",
-  "TERM_PROGRAM_VERSION": "1.71.0",
+  "TERM_PROGRAM_VERSION": "1.71.1",
   "TMP": "C:\\Users\\jgarn\\AppData\\Local\\Temp",
   "TMPDIR": "C:\\Users\\jgarn\\AppData\\Local\\Temp",
   "USERDOMAIN": "DESKTOP-EL76B4S",
@@ -107,5 +106,6 @@ window.env = {
   "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-cb1dd620f2-sock",
   "WINDIR": "C:\\WINDOWS",
   "ZES_ENABLE_SYSMAN": "1",
-  "_": "C:/Program Files/nodejs/node.exe"
+  "_": "C:/Program Files/nodejs/node.exe",
+  "__COMPAT_LAYER": "DetectorsAppHealth"
 };
