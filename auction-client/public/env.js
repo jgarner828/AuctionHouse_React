@@ -4,7 +4,7 @@ window.env = {
   "APPDATA": "C:\\Users\\jgarn\\AppData\\Roaming",
   "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
   "ChocolateyLastPathUpdate": "132996054875564053",
-  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_15560_TBFKDLINSFHWVJQB",
+  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_19184_SYABANVLYKZJXWCA",
   "CLIENT_ID": "691476869681-olobjgpb80v3p2rad1ldauhrmic5hm5m.apps.googleusercontent.com",
   "COLOR": "1",
   "COLORTERM": "truecolor",
@@ -93,7 +93,7 @@ window.env = {
   "TEMP": "C:\\Users\\jgarn\\AppData\\Local\\Temp",
   "TERM": "xterm-256color",
   "TERM_PROGRAM": "vscode",
-  "TERM_PROGRAM_VERSION": "1.71.1",
+  "TERM_PROGRAM_VERSION": "1.71.2",
   "TMP": "C:\\Users\\jgarn\\AppData\\Local\\Temp",
   "TMPDIR": "C:\\Users\\jgarn\\AppData\\Local\\Temp",
   "USERDOMAIN": "DESKTOP-EL76B4S",
@@ -106,6 +106,5 @@ window.env = {
   "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-cb1dd620f2-sock",
   "WINDIR": "C:\\WINDOWS",
   "ZES_ENABLE_SYSMAN": "1",
-  "_": "C:/Program Files/nodejs/node.exe",
-  "__COMPAT_LAYER": "DetectorsAppHealth"
+  "_": "C:/Program Files/nodejs/node.exe"
 };

@@ -15,15 +15,17 @@ function App() {
   let CLIENT_ID = env.CLIENT_ID;
 
   const [user, setUser] = useState();
-
+  const [authCredentials, setAuthCredentials] = useState();
+  const [token, setToken] = useState();
 
   function handleCallBackResponse(response) {
 
-    console.log(response)
-    
+
     var userObject = jwt_decode(response.credential);
-    console.log(userObject)
+    // console.log(userObject)
     setUser(userObject)
+    setAuthCredentials(response)
+    setToken(response.credential);
   }
 
   useEffect(() => {
@@ -44,12 +46,14 @@ function App() {
   return (
  
     <div className="App">
+      <Header />
           {
            user ? 
-                  (<AuctionList />) 
+                  (<AuctionList user ={user} token={token} authCredentials={authCredentials} />) 
                 :
                   (<div id="signInDiv"></div>)
           }
+        <Footer />
     </div> 
   );
 
