@@ -104,7 +104,7 @@ const getAuctionList=()=>{
 
   return (
     <ul>  
-        {auctionItems.map( item =>  <AuctionItem key={item.id} item={item} />)}
+        {auctionItems.map( item =>  <AuctionItem key={item.id} item={item} user={user} />)}
     </ul> 
   )
 }
