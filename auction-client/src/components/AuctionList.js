@@ -1,18 +1,14 @@
 import React from 'react'
 import AuctionItem from './AuctionItem'
-import auctionItemsTestData from '../data/auctionItemsTestData.json';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import {useState, useEffect } from 'react';
 
 function AuctionList({user, authCredentials, token}) {
 
- console.log(user)
- console.log(authCredentials);
- console.log(token);
  
  var stompClient = null;
-
+ const [auctionItems, setAuctionItems] = useState([]);
 
  const [userData, setUserData] = useState({
      username: user.name,
@@ -21,6 +17,7 @@ function AuctionList({user, authCredentials, token}) {
      message: ''
    });
 
+ 
 
 const connect = () => {
       // eslint-disable-next-line no-undef
@@ -90,14 +87,12 @@ const getAuctionList=()=>{
     };
 
     fetch(url, init)
-    .then((response)=>{ response.json() })
-    .then((result)=>{console.log(result)})
-
+    .then(response => response.json())
+    .then(response => {setAuctionItems(response)})
 };
 
 
  useEffect(() => {
-
   getAuctionList();
    connect();
  }, []);
@@ -105,21 +100,15 @@ const getAuctionList=()=>{
 
 
 
-  if (!auctionItemsTestData) return null;
-
+  if (!auctionItems.length === 0) return null;
 
   return (
     <ul>  
-        {
-            auctionItemsTestData.map(data => {
-              return (
-                    <AuctionItem key={data.id} item={data} />
-                    )
-            })
-        }
+        {auctionItems.map( item =>  <AuctionItem key={item.id} item={item} />)}
     </ul> 
   )
-
 }
+
+
 
 export default AuctionList

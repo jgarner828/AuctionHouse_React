@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .App-logo {
@@ -35,4 +37,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#root {
+  min-height: fit-content;
+}
+
+.auctionContainer {
+  display: flex;
+
+}
+
+.auctionItemComponent {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  outline: solid 1px black;
+  
 }

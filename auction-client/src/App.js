@@ -49,7 +49,7 @@ function App() {
       <Header />
           {
            user ? 
-                  (<AuctionList user ={user} token={token} authCredentials={authCredentials} />) 
+                  (<AuctionList className="auctionContainer" user ={user} token={token} authCredentials={authCredentials} />) 
                 :
                   (<div id="signInDiv"></div>)
           }
