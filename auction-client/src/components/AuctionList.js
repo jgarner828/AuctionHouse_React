@@ -1,11 +1,14 @@
 import React from 'react'
+import {useState, useEffect } from 'react';
+import StompClientGenerator from '../config/StompClientGenerator'
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
-import {useState, useEffect } from 'react';
+
+
+let stompClient;
 
 function AuctionList({user, authCredentials, token}) {
 
- 
  const [auctionItems, setAuctionItems] = useState([]);
 
  const [userData, setUserData] = useState({
@@ -14,76 +17,38 @@ function AuctionList({user, authCredentials, token}) {
                                             message: ''
                                           });
 
-  const [bid, setBid] = useState(0.00);
-
-  let stompClient;
-  let socket;
-
-const connect = async () => {
-      socket = new SockJS('http://localhost:8080/ws')
-      stompClient = Stomp.over(socket)
-      stompClient.connect({}, onConnected, onError)
-}
+ const [bid, setBid] = useState(0.0);
 
 
-const onConnected = async() => {
-
-  stompClient.subscribe('/topic/bids', onMessageReceived)
-
-  stompClient.send("/app/socket.newUser",
-      {},
-      JSON.stringify({
-          sender: user.name,
-          type: 'NEW_USER',
-          time: Date.now()
-      })
-  )
-}
-
-
-
- 
-const onError = async (err) => {
-  console.log(err);
- 
-}
-
-
-const handleChange = async (e) =>{ 
+ const handleChange = async (e) =>{ 
   setBid(e.target.value);
-}
+ }
 
 
-const submitBid =  async (item) => { 
+ const submitBid =  async (target) => { 
   
+  console.log(target);
+ 
 
   let newMessage = {
                 type: "BID",
                 newBid: {
-                        itemId: item.id,
+                        itemId: target.target.id,
                         email: user.email,
                         bidPrice: bid,
-                        bidTime: new Date().getTime()
+                        bidTime: new Date().getUTCDate
                        },
                 sender: userData.email,
                 time: new Date().getTime()
       };
 
             try { 
-              stompClient.send("/socket.send", {}, JSON.stringify(newMessage));
+              stompClient.send("/app/socket.send", {}, JSON.stringify(newMessage));
             } catch(err){ 
               console.log(err); }
-}
+ }
 
-
-const onMessageReceived = async (payload)=>{
-  console.log("onMessageReceived")
-  console.log(payload)
-}
-
-
-
-const getAuctionList = async () => {
+ const getAuctionList = async () => {
 
     const url = "http://localhost:8080/auctionlist";
   
@@ -98,16 +63,25 @@ const getAuctionList = async () => {
     fetch(url, init)
     .then(response => response.json())
     .then(response => {setAuctionItems(response)})
-};
+ };
+
+ const startSocketConnection = (user) => {
+  stompClient.connect(user);
+ };
 
 
-useEffect( () => {
+ useEffect( () => {
   getAuctionList();
-  connect();
-}, []);
+
+  // websocket connection starting....
+  let newConnection = new StompClientGenerator(user);
+  stompClient = newConnection.stompClient;
+  startSocketConnection();
+ }, []);
 
 
-return (
+
+ return (
     <ul>  
         {auctionItems.map( item =>  {
           return(                <div key={item.id} className = "auctionItemComponent">
@@ -117,8 +91,8 @@ return (
                 <span>Minimum Bid: {item.itemMinBid}</span>
                 <span>Time left</span>
         
-                <input type="number" id="bidInput_" name="bidInput" onChange={handleChange} ></input>
-                <button type='submit' onClick={submitBid}>Submit bid</button>
+                <input type="number"  name="bidInput" onChange={handleChange} ></input>
+                <button type='submit' id={item.id} onClick={submitBid}>Submit bid</button>
               </div>)
 
         })}
