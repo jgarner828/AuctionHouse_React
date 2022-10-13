@@ -21,6 +21,7 @@ function submitBid () {
 
 
         let newBid = {
+                      id: 1,
                       item_id: item.id,
                       user_email: user.email,
                       bid_price: bid,

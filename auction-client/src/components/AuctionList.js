@@ -1,9 +1,7 @@
 import React from 'react'
 import {useState, useEffect } from 'react';
 import StompClientGenerator from '../config/StompClientGenerator'
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
-
+import { v4 as uuidv4 } from 'uuid';
 
 let stompClient;
 
@@ -27,16 +25,19 @@ function AuctionList({user, authCredentials, token}) {
 
  const submitBid =  async (target) => { 
   
-  console.log(target);
- 
+  // console.log(target); 
+
+  const id = uuidv4();
+  const time = Date.now();
 
   let newMessage = {
                 type: "BID",
                 newBid: {
+                        id: id,
                         itemId: target.target.id,
                         email: user.email,
                         bidPrice: bid,
-                        bidTime: new Date().getUTCDate
+                        bidTime: time
                        },
                 sender: userData.email,
                 time: new Date().getTime()
