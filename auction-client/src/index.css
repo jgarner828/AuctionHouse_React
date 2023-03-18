@@ -14,13 +14,13 @@ code {
 
 body,html {
   margin: 0;
-  background-color: rgba(40, 42, 54, 1) !important;
+  /* background-color: rgba(40, 42, 54, 1) !important; */
 }
 
 .card {
   height: 500px;
   border-radius: 15px !important;
-  background-color: rgba(0,0,0,0.4) !important;
+  /* background-color: rgba(0,0,0,0.4) !important; */
 }
 
 .card-body {

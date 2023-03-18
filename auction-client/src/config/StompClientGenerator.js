@@ -12,24 +12,15 @@ export default class StompClientGenerator {
     }
 
 
-    onConnected = async (stompClient, user) => {
+       onConnected = async (stompClient, user) => {
         console.log('onConnected')
-        console.log(stompClient)
     
-        stompClient.subscribe('/topic/bids', stompClient.onMessageReceived)
+       await stompClient.subscribe('/topic/bids', stompClient.onMessageReceived())
       
-        stompClient.send("/app/socket.newUser",
-            {},
-            JSON.stringify({
-                sender: user.name,
-                type: 'NEW_USER',
-                time: Date.now()
-            })
-        )
       }
       
     
-    onMessageReceived = async (payload)=>{
+     onMessageReceived = async (payload)=>{
         console.log("onMessageReceived")
         console.log(payload)
       }
@@ -41,6 +32,7 @@ export default class StompClientGenerator {
     }
 
     initConnect = async (stompClient, user) => {
-         await stompClient.connect({}, stompClient.onConnected(stompClient, user), stompClient.onError)
+        console.log("initConnect")
+     await stompClient.connect({}, stompClient.onConnected(stompClient, user), stompClient.onError())
     }
 }

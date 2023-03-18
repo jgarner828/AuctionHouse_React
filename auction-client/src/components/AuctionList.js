@@ -3,7 +3,12 @@ import {useState, useEffect } from 'react';
 import StompClientGenerator from '../config/StompClientGenerator'
 import { v4 as uuidv4 } from 'uuid';
 
+
+
 let stompClient;
+
+
+
 
 function AuctionList({user, authCredentials, token}) {
 
@@ -25,7 +30,6 @@ function AuctionList({user, authCredentials, token}) {
 
  const submitBid =  async (target) => { 
   
-  // console.log(target); 
 
   const id = uuidv4();
   const time = Date.now();
@@ -67,7 +71,7 @@ function AuctionList({user, authCredentials, token}) {
  };
 
  const startSocketConnection = (user) => {
-  stompClient.connect(user);
+  stompClient.connect(stompClient, user)
  };
 
 
