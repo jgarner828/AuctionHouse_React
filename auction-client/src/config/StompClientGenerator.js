@@ -1,5 +1,5 @@
- import Stomp from 'stompjs';
- import SockJS from 'sockjs-client';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
 export default class StompClientGenerator {
 
@@ -12,25 +12,25 @@ export default class StompClientGenerator {
     }
 
 
-    initConnect =  async (stompClient, user) => {
+    initConnect =  async () => {
         console.log("initConnect")
-        await stompClient.connect({}, stompClient.onConnected(stompClient, user), stompClient.onError())
+        await this.stompClient.connect({}, this.stompClient.onConnected(), this.stompClient.onError())
     }
 
 
-    onConnected = async (stompClient, user) => {
+    onConnected = async () => {
         console.log('onConnected')
-        await stompClient.subscribe('/topic/bids', stompClient.onMessageReceived())
+        await this.stompClient.subscribe('/topic/bids', this.stompClient.onMessageReceived())
     }
 
 
-     onMessageReceived = async (payload)=>{
+     onMessageReceived = (payload)=>{
         console.log("onMessageReceived")
         console.log(payload)
     }
 
     
-    onError = async (err) => {
+    onError =  (err) => {
         console.log(err);
        
     }

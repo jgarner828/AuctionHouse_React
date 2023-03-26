@@ -9,30 +9,33 @@ let stompClient;
 
 
 
-
 function AuctionList({user, authCredentials, token}) {
 
- const [auctionItems, setAuctionItems] = useState([]);
 
- const [userData, setUserData] = useState({
-                                            email: user.email,
-                                            name: user.name,
-                                            message: ''
-                                          });
-
- const [bid, setBid] = useState(0.0);
+  const [auctionItems, setAuctionItems] = useState([]);
 
 
- const handleChange = async (e) =>{ 
+  const [userData, setUserData] = useState({
+                                          email: user.email,
+                                          name: user.name,
+                                          message: ''
+                                        });
+
+
+  const [bid, setBid] = useState(0.0);
+
+
+  const handleChange = async (e) =>{ 
   setBid(e.target.value);
- }
+  }
 
 
- const submitBid =  async (target) => { 
-  
+  const submitBid =  async (target) => { 
+
 
   const id = uuidv4();
   const time = Date.now();
+
 
   let newMessage = {
                 type: "BID",
@@ -42,21 +45,24 @@ function AuctionList({user, authCredentials, token}) {
                         email: user.email,
                         bidPrice: bid,
                         bidTime: time
-                       },
+                      },
                 sender: userData.email,
                 time: new Date().getTime()
-      };
+  };
+
+
 
             try { 
+              startSocketConnection(user, authCredentials, token);
               stompClient.send("/app/socket.send", {}, JSON.stringify(newMessage));
             } catch(err){ 
               console.log(err); }
- }
+  }
 
- const getAuctionList = async () => {
+  const getAuctionList = async () => {
 
     const url = "http://localhost:8080/auctionlist";
-  
+
     const init = {
       method: "GET",
         headers: {
@@ -68,25 +74,27 @@ function AuctionList({user, authCredentials, token}) {
     fetch(url, init)
     .then(response => response.json())
     .then(response => {setAuctionItems(response)})
- };
+  };
 
- const startSocketConnection = (user) => {
-  stompClient.connect(stompClient, user)
- };
-
-
- useEffect( () => {
-  getAuctionList();
-
-  // websocket connection starting....
-  let newConnection = new StompClientGenerator(user);
+  const startSocketConnection = (user, authCredentials, token) => {
+  let newConnection = new StompClientGenerator(user, authCredentials, token);
   stompClient = newConnection.stompClient;
-  startSocketConnection();
- }, []);
+  newConnection.initConnect(stompClient, user);
+  };
+
+
+  useEffect(() => {
+    getAuctionList();
+  
+    // websocket connection starting....
+    let newConnection = new StompClientGenerator(user);
+    stompClient = newConnection.stompClient;
+    startSocketConnection(user); // pass user argument to startSocketConnection
+  }, []);
 
 
 
- return (
+  return (
     <ul>  
         {auctionItems.map( item =>  {
           return(                <div key={item.id} className = "auctionItemComponent">
@@ -104,7 +112,6 @@ function AuctionList({user, authCredentials, token}) {
     </ul> 
   )
 }
-
 
 
 export default AuctionList
