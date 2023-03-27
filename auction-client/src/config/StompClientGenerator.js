@@ -13,14 +13,18 @@ export default class StompClientGenerator {
 
 
     initConnect =  async () => {
-        console.log("initConnect")
-        await this.stompClient.connect({}, this.stompClient.onConnected(), this.stompClient.onError())
+        try {
+            console.log("initConnect")
+            await this.stompClient.connect({}, this.stompClient.onConnected(), this.stompClient.onError())
+        } catch (error) {
+            this.onError(error)
+        }
     }
 
 
-    onConnected = async () => {
+    onConnected = () => {
         console.log('onConnected')
-        await this.stompClient.subscribe('/topic/bids', this.stompClient.onMessageReceived())
+        this.stompClient.subscribe('/topic/bids', this.stompClient.onMessageReceived())
     }
 
 
@@ -32,7 +36,6 @@ export default class StompClientGenerator {
     
     onError =  (err) => {
         console.log(err);
-       
     }
 
 
