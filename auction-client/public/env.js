@@ -4,7 +4,7 @@ window.env = {
   "APPDATA": "C:\\Users\\jgarn\\AppData\\Roaming",
   "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
   "ChocolateyLastPathUpdate": "132996054875564053",
-  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\LOCAL\\crashpad_24416_BNMTEEJJEMKAVTXX",
+  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\LOCAL\\crashpad_19904_WPJEEGJQRWBDILOJ",
   "CLIENT_ID": "691476869681-olobjgpb80v3p2rad1ldauhrmic5hm5m.apps.googleusercontent.com",
   "COLOR": "1",
   "COLORTERM": "truecolor",
@@ -17,11 +17,9 @@ window.env = {
   "DISPLAY": "needs-to-be-defined",
   "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
   "EDITOR": "notepad.exe",
-  "EFC_10424": "1",
+  "EFC_4968": "1",
   "ERLANG_HOME": "C:\\Program Files\\erl-24.0",
   "EXEPATH": "C:\\Program Files\\Git\\bin",
-  "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
-  "FPS_BROWSER_USER_PROFILE_STRING": "Default",
   "GIT_ASKPASS": "c:\\Users\\jgarn\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
   "HOME": "C:\\Users\\jgarn",
   "HOMEDRIVE": "C:",
@@ -111,6 +109,5 @@ window.env = {
   "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-cb1dd620f2-sock",
   "WINDIR": "C:\\WINDOWS",
   "ZES_ENABLE_SYSMAN": "1",
-  "_": "C:/Program Files/nodejs/node.exe",
-  "__COMPAT_LAYER": "DetectorsAppHealth"
+  "_": "C:/Program Files/nodejs/node.exe"
 };

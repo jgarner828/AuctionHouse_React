@@ -7,19 +7,23 @@ import { v4 as uuidv4 } from 'uuid';
 
 let stompClient;
 
+const startSocketConnection = (user, authCredentials, token) => {
+  let newConnection = new StompClientGenerator(user, authCredentials, token);
+  stompClient = newConnection.stompClient;
+  newConnection.initConnect(stompClient, user);
+  };
 
 
 function AuctionList({user, authCredentials, token}) {
 
+  const [userData, setUserData] = useState({
+    email: user.email,
+    name: user.name,
+    message: ''
+  });
+
 
   const [auctionItems, setAuctionItems] = useState([]);
-
-
-  const [userData, setUserData] = useState({
-                                          email: user.email,
-                                          name: user.name,
-                                          message: ''
-                                        });
 
 
   const [bid, setBid] = useState(0.0);
@@ -76,11 +80,9 @@ function AuctionList({user, authCredentials, token}) {
     .then(response => {setAuctionItems(response)})
   };
 
-  const startSocketConnection = (user, authCredentials, token) => {
-  let newConnection = new StompClientGenerator(user, authCredentials, token);
-  stompClient = newConnection.stompClient;
-  newConnection.initConnect(stompClient, user);
-  };
+
+
+
 
 
   useEffect(() => {
