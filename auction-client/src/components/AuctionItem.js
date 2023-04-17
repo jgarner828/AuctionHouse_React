@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 
-function AuctionItem({item, user}) {
+export default function AuctionItem({item, user}) {
 
   console.log(user)
   console.log(item)
@@ -70,5 +70,3 @@ function submitBid () {
 
   )
 }
-
-export default AuctionItem
