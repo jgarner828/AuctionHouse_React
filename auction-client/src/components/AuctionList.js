@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
-let stompClient;
+let stompClient = null;
 
 const startSocketConnection = (user, authCredentials, token) => {
   let newConnection = new StompClientGenerator(user, authCredentials, token);
@@ -14,7 +14,8 @@ const startSocketConnection = (user, authCredentials, token) => {
   };
 
 
-function AuctionList({user, authCredentials, token}) {
+
+export default function AuctionList({user, authCredentials, token}) {
 
   const [userData, setUserData] = useState({
     email: user.email,
@@ -57,7 +58,7 @@ function AuctionList({user, authCredentials, token}) {
 
 
             try { 
-              startSocketConnection(user, authCredentials, token);
+              // startSocketConnection(user, authCredentials, token);
               stompClient.send("/app/socket.send", {}, JSON.stringify(newMessage));
             } catch(err){ 
               console.log(err); }
@@ -82,17 +83,16 @@ function AuctionList({user, authCredentials, token}) {
 
 
 
-
-
-
   useEffect(() => {
     getAuctionList();
   
     // websocket connection starting....
-    let newConnection = new StompClientGenerator(user);
-    stompClient = newConnection.stompClient;
-    startSocketConnection(user); // pass user argument to startSocketConnection
+    // let newConnection = new StompClientGenerator(user);
+    // stompClient = newConnection.stompClient;
+    startSocketConnection(user, authCredentials, token);
   }, []);
+
+
 
 
 
@@ -114,6 +114,3 @@ function AuctionList({user, authCredentials, token}) {
     </ul> 
   )
 }
-
-
-export default AuctionList
