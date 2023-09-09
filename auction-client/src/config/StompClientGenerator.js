@@ -30,7 +30,7 @@ export default class StompClientGenerator {
 
      onMessageReceived = (payload)=>{
         console.log("onMessageReceived")
-        console.log(payload)
+        console.log(JSON.stringify(payload))
     }
 
     

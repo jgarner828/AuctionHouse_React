@@ -6,11 +6,16 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 let stompClient = null;
+let stompClientConnected = false;
 
-const startSocketConnection = (user, authCredentials, token) => {
+const startSocketConnection = (user, token , authCredentials) => {
+
+  if (stompClientConnected) return;
+
   let newConnection = new StompClientGenerator(user, authCredentials, token);
   stompClient = newConnection.stompClient;
   newConnection.initConnect(stompClient, user);
+  stompClientConnected = true;
   };
 
 
@@ -96,13 +101,15 @@ export default function AuctionList({user, authCredentials, token}) {
 
 
 
+
   return (
     <ul>  
         {auctionItems.map( item =>  {
-          return(                <div key={item.id} className = "auctionItemComponent">
+          return(                
+                <div key={item.id} className = "auctionItemComponent">
                 <h3>{item.name}</h3>
                 <span>{item.desc}</span>
-                <span>Current Bid: ${item.itemStartingPrice}</span>
+                <span>Current Bid: ${item.price}</span>
                 <span>Minimum Bid: {item.itemMinBid}</span>
                 <span>Time left</span>
         

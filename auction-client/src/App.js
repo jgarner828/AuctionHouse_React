@@ -2,10 +2,11 @@
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import AuctionList from './components/AuctionList';
 import { useState, useEffect } from 'react';
 import env from "react-dotenv";
 import jwt_decode from 'jwt-decode';
+import MainPage from './components/MainPage';
+import AuctionList from './components/AuctionList';
 
 
 
@@ -46,14 +47,18 @@ function App() {
   return (
  
     <div className="App">
+
       <Header />
-          {
-           user ? 
-                  (<AuctionList className="auctionContainer" user ={user} token={token} authCredentials={authCredentials} />) 
-                :
-                  (<div id="signInDiv"></div>)
-          }
+
+      {
+        user ? 
+                (<AuctionList  user ={user} token={token} authCredentials={authCredentials}  />)
+              :
+                (<div id="signInDiv"></div>)
+      }
+
         <Footer />
+
     </div> 
   );
 
