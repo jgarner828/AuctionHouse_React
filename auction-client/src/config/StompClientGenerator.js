@@ -1,14 +1,26 @@
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
-export default class StompClientGenerator {
+class StompClientGenerator {
+
+    static instance = null;
 
 
 
     constructor(user) {
-        this.socket = new SockJS('http://localhost:8080/ws')
-        this.stompClient = Stomp.over(this.socket)
-        this.initConnect();
+        if(!StompClientGenerator.instance) {
+            this.socket = new SockJS('http://localhost:8080/ws');
+            this.stompClient = Stomp.over(this.socket);
+            this.initConnect();
+            StompClientGenerator.instance = this; 
+        }
+    }
+
+    static getInstance() {
+        if (!StompClientGenerator.instance) {
+            StompClientGenerator.instance = new StompClientGenerator();
+        }
+        return StompClientGenerator.instance;
     }
 
 
@@ -40,3 +52,5 @@ export default class StompClientGenerator {
 
 
 }
+
+export default StompClientGenerator.getInstance;

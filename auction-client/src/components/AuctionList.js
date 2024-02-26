@@ -1,26 +1,13 @@
 import React from 'react'
 import {useState, useEffect } from 'react';
-import StompClientGenerator from '../config/StompClientGenerator'
 import { v4 as uuidv4 } from 'uuid';
 
 
 
-let stompClient = null;
-let stompClientConnected = false;
-
-const startSocketConnection = (user, token , authCredentials) => {
-
-  if (stompClientConnected) return;
-
-  let newConnection = new StompClientGenerator(user, authCredentials, token);
-  stompClient = newConnection.stompClient;
-  newConnection.initConnect(stompClient, user);
-  stompClientConnected = true;
-  };
 
 
 
-export default function AuctionList({user, authCredentials, token}) {
+export default function AuctionList({user, authCredentials, token, stompClient}) {
 
   const [userData, setUserData] = useState({
     email: user.email,
@@ -90,11 +77,6 @@ export default function AuctionList({user, authCredentials, token}) {
 
   useEffect(() => {
     getAuctionList();
-  
-    // websocket connection starting....
-    // let newConnection = new StompClientGenerator(user);
-    // stompClient = newConnection.stompClient;
-    startSocketConnection(user, authCredentials, token);
   }, []);
 
 
