@@ -14,7 +14,7 @@ export default function StompWrapper(user, token, authCredentials) {
     if (!stompClientConnected) {
       
       let stompClient = StompClientGenerator();
-      stompClient.initConnect(stompClient, user);
+      // stompClient.initConnect(stompClient, user);
       stompClientConnected = true;
     }
   
