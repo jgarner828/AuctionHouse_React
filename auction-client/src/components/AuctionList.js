@@ -12,7 +12,7 @@ export default function AuctionList({user, authCredentials, authToken}) {
 
  const stompClientRef = useRef(null);
 
- const [auctionItems, setAuctionItems] = useState([]);
+ const [auctionItemList, setAuctionItemList] = useState([]);
  const [bid, setBid] = useState(0.00);
 
  const userData = {
@@ -47,6 +47,7 @@ export default function AuctionList({user, authCredentials, authToken}) {
           };
 
                 try { 
+                  console.log("send bid from AuctionList");
                   stompClientRef.current.send("/app/socket.send", {}, JSON.stringify(newMessage));
                 } catch(err){ 
                   console.log(err); }
@@ -67,7 +68,7 @@ export default function AuctionList({user, authCredentials, authToken}) {
 
     fetch(url, init)
     .then(response => response.json())
-    .then(response => {setAuctionItems(response)})
+    .then(response => {setAuctionItemList(response)})
  };
 
 
@@ -97,7 +98,7 @@ export default function AuctionList({user, authCredentials, authToken}) {
   
  return stompClientRef ? (
     <ul>  
-        {auctionItems.map( item =>  {
+        {auctionItemList.map( item =>  {
           return(                <div key={item.id} className = "auctionItemComponent">
                 <h3>{item.name}</h3>
                 <span>{item.desc}</span>
