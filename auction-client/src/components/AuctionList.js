@@ -1,97 +1,101 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import {useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
 
 
+export default function AuctionList({user, authCredentials, authToken}) {
 
 
-export default function AuctionList({user, authCredentials, token, stompClient}) {
+ const stompClientRef = useRef(null);
 
-  const [userData, setUserData] = useState({
-    email: user.email,
-    name: user.name,
-    message: ''
-  });
+ const [auctionItems, setAuctionItems] = useState([]);
+ const [bid, setBid] = useState(0.00);
 
-
-  const [auctionItems, setAuctionItems] = useState([]);
-
-
-  const [bid, setBid] = useState(0.0);
+ const userData = {
+                    email: user.email,
+                    name: user.name,
+                    message: ''
+                                          };
 
 
-  const handleChange = async (e) =>{ 
-  setBid(e.target.value);
-  }
+ const handleChange = async (event) =>{ 
+      setBid(event.target.value);
+ }
 
 
-  const submitBid =  async (target) => { 
+ const submitBid =  async (target) => { 
+  
+
+      const id = uuidv4();
+      const time = Date.now();
+
+      let newMessage = {
+                    type: "BID",
+                    newBid: {
+                            id: id,
+                            itemId: target.target.id,
+                            email: user.email,
+                            bidPrice: bid,
+                            bidTime: time
+                          },
+                    sender: userData.email,
+                    time: new Date().getTime()
+          };
+
+                try { 
+                  stompClientRef.current.send("/app/socket.send", {}, JSON.stringify(newMessage));
+                } catch(err){ 
+                  console.log(err); }
+ }
 
 
-  const id = uuidv4();
-  const time = Date.now();
-
-
-  let newMessage = {
-                type: "BID",
-                newBid: {
-                        id: id,
-                        itemId: target.target.id,
-                        email: user.email,
-                        bidPrice: bid,
-                        bidTime: time
-                      },
-                sender: userData.email,
-                time: new Date().getTime()
-  };
-
-
-
-            try { 
-              // startSocketConnection(user, authCredentials, token);
-              stompClient.send("/app/socket.send", {}, JSON.stringify(newMessage));
-            } catch(err){ 
-              console.log(err); }
-  }
-
-  const getAuctionList = async () => {
+ const getAuctionList = async () => {
 
     const url = "http://localhost:8080/auctionlist";
-
+  
     const init = {
       method: "GET",
         headers: {
             'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`, // notice the Bearer before your token
+            'Authorization': `Bearer ${authToken}`, // notice the Bearer before your token
         },
     };
 
     fetch(url, init)
     .then(response => response.json())
     .then(response => {setAuctionItems(response)})
-  };
-
-
-
-  useEffect(() => {
-    getAuctionList();
-  }, []);
+ };
 
 
 
 
 
+ useEffect(() => {
+  const socket = new SockJS('http://localhost:8080/ws');
+  stompClientRef.current = Stomp.over(socket);
 
-  return (
+  stompClientRef.current.connect({}, function (frame) {
+    console.log('Connected: ' + frame);
+    stompClientRef.current.subscribe('/topic/bids', function (bids) {
+      alert(JSON.parse(bids.body).content);
+    });
+  });
+  getAuctionList();
+}, []);
+
+
+  
+ return stompClientRef ? (
     <ul>  
         {auctionItems.map( item =>  {
-          return(                
-                <div key={item.id} className = "auctionItemComponent">
+          return(                <div key={item.id} className = "auctionItemComponent">
                 <h3>{item.name}</h3>
                 <span>{item.desc}</span>
-                <span>Current Bid: ${item.price}</span>
+                <span>Current Bid: ${item.itemStartingPrice}</span>
                 <span>Minimum Bid: {item.itemMinBid}</span>
                 <span>Time left</span>
         
@@ -101,5 +105,5 @@ export default function AuctionList({user, authCredentials, token, stompClient})
 
         })}
     </ul> 
-  )
+  ) : null;
 }

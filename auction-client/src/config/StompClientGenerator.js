@@ -53,4 +53,4 @@ class StompClientGenerator {
 
 }
 
-export default StompClientGenerator.getInstance;
+export default StompClientGenerator;
