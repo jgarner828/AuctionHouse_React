@@ -75,16 +75,22 @@ export default function AuctionList({user, authCredentials, authToken}) {
 
 
  useEffect(() => {
-  const socket = new SockJS('http://localhost:8080/ws');
-  stompClientRef.current = Stomp.over(socket);
 
-  stompClientRef.current.connect({}, function (frame) {
-    console.log('Connected: ' + frame);
-    stompClientRef.current.subscribe('/topic/bids', function (bids) {
-      alert(JSON.parse(bids.body).content);
-    });
-  });
+  if(!stompClientRef.current){
+      
+      const socket = new SockJS('http://localhost:8080/ws');
+      stompClientRef.current = Stomp.over(socket);
+
+      stompClientRef.current.connect({}, function (frame) {
+      console.log('Connected: ' + frame);
+      stompClientRef.current.subscribe('/topic/bids', function (bids) {
+        alert(JSON.parse(bids.body).content);
+        });
+      });
+    }
+
   getAuctionList();
+
 }, []);
 
 
